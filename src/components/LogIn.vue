@@ -1,23 +1,41 @@
 <template>
   <div class="logIn_user">
     <div class="container_logIn_user">
-      <h2>Iniciar sesión</h2>
-      <form v-on:submit.prevent="processLogInUser">
+      <!-- <h2>Iniciar sesión</h2> -->
+      <form class="flex flex-col gap-2" v-on:submit.prevent="processLogInUser">
+        <div id="Spay" class="w-full h-24"></div>
         <input
           type="text"
           v-model="user.username"
-          placeholder="Username"
-          class="border rounded-lg py-3 px-3 mt-4 bg-gray-100 border-indigo-600 focus:outline-none placeholder-white-500 text-gray-700"
+          placeholder="Usuario"
+          class="no-appearance bg-gray-100 w-full leading-normal py-2 px-3 rounded border-b-4 border-green-base  focus:outline-none"
         />
-        <br />
         <input
           type="password"
           v-model="user.password"
-          placeholder="Password"
-          class="border rounded-lg py-3 px-3 mt-4 bg-gray-100 border-indigo-600 focus:outline-none placeholder-white-500 text-gray-700"
+          placeholder="Pass"
+          class="no-appearance bg-gray-100 w-full leading-normal py-2 px-3 rounded border-b-4 border-green-base  focus:outline-none"
         />
-        <br />
-        <button type="submit">Iniciar Sesion</button>
+        <button
+          class="uppercase font-bold w-full m-0 bg-green-base text-lg text-purple-base hover:text-orange-base rounded-b-lg p-3 flex justify-center items-center"
+          type="submit"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          Iniciar sesión
+        </button>
       </form>
     </div>
   </div>
@@ -35,6 +53,7 @@ export default {
       },
     };
   },
+  components: {},
   methods: {
     processLogInUser: function() {
       axios
@@ -59,4 +78,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#Spay {
+  background-image: url("../assets/Spay2.png");
+  @apply bg-contain bg-center bg-no-repeat;
+}
+</style>
