@@ -30,14 +30,14 @@
       <hr />
       </div>
       <br />
-      <form class="formulario" v-on:submit.prevent="processSignUp">
+      <form id="CreateForm" class="formulario" v-on:submit.prevent="processSignUp">
         <label class="etiquetas" for="name">Nombres</label>
         <input class="entradas" type="text" id="name" v-model="user.name" placeholder="Ejem: Andrea María" />
         
         <label class="etiquetas" for="lastname">Apellidos </label>
         <input class="entradas" type="text" id="lastname" v-model="user.lastname" placeholder="Ejem: Fandinho Ramirez" />
         
-        <label class="etiquetas" for="idkind">Tipo de Identificación </label>
+        <label class="etiquetas" for="idkind"> TP Identificación </label>
         <select class="entradas" name="ID" v-model="user.IDKind">
           <option value="" disable selected hidden>Tipo de Identificación</option>
           <option value="CC">Cédula de Ciudadania</option>
@@ -46,26 +46,26 @@
           <option value="NT">NIT</option>
         </select>
         
-        <label class="etiquetas" for="idnumber">Numero de Identificación &nbsp;</label>
+        <label class="etiquetas" for="idnumber">Numero ID&nbsp;</label>
         <input class="entradas" type="text" id="idnumber" v-model="user.IDNumber" placeholder="Sin Espacios" />
         
-        <label class="etiquetas" for="address">Dirección de Residencia </label>
+        <label class="etiquetas" for="address">Dirección</label>
         <input class="entradas" type="text" id="address" v-model="user.address" placeholder="Nomenclatura en Mayúscula y #" />
         
         <!--OJO CUIDADO ARREGLAR DICE ANDREA -->
         
-        <label class="etiquetas" for="city">Ciudad de Residencia </label>
+        <label class="etiquetas" for="city">Ciudad</label>
         <input class="entradas" type="text" id="city" v-model="user.city" placeholder="Ejem: Bogotá" />
         
         <!---AQUI TAMBIÉN -->
         
-        <label class="etiquetas" for="country">País de Residencia </label>
+        <label class="etiquetas" for="country">País</label>
         <input class="entradas" type="text" id="country" v-model="user.country" placeholder="Ejem: Polombia" />
         
         <label class="etiquetas" for="landline">Teléfono Fijo </label>
         <input class="entradas" type="text" id="landline" v-model="user.landline" placeholder="Si no tiene indique Celular" />
         
-        <label class="etiquetas" for="mobilephone">Número de Celular </label>
+        <label class="etiquetas" for="mobilephone">Celular </label>
         <input class="entradas" type="text" id="mobilephone" v-model="user.mobilephone" placeholder="Si no tiene indique fijo" />
         
         <label class="etiquetas" for="jobs">Ocupación </label>
@@ -74,13 +74,13 @@
         <label class="etiquetas" for="company">Compañía </label>
         <input class="entradas" type="text" id="company" v-model="user.company" placeholder="Ejem: Google" />
         
-        <label class="etiquetas" for="username">Nombre de Usuario </label>
+        <label class="etiquetas" for="username">Usuario </label>
         <input class="entradas" type="text" id="username" v-model="user.username" placeholder="Ejem: AFandinho" />
         
-        <label class="etiquetas" for="email">Correo Electrónico </label>
+        <label class="etiquetas" for="email">Correo</label>
         <input class="entradas" type="text" id="email" v-model="user.email" placeholder="Ejem: afandinho@elmail.com" />
         
-        <label class="etiquetas" for="password">Contraseña </label>
+        <label class="etiquetas" for="password">Contraseña</label>
         <input class="entradas" type="password" id="password" v-model="user.password" placeholder="Ejem: *****" />
                       
       </form> 
@@ -91,14 +91,14 @@
       
       
     <div class="boton1">
-             <button type="submit">
+             <button type="submit" form="CreateForm">
                  <img src="../assets/doghead.png" style="width:20px,height:20px" alt="Registrarse">
                  <p>Registrarse</p>
              </button>
-    </div>
+    </div>  
 
    <div class="boton2">
-             <button type="submit">
+             <button type="submit" onclick="window.location.href = 'https://mintic-adoptapp-fe.herokuapp.com/login/';">
                  <img src="../assets/cathead.png" style="width:20px,height:20px" alt="Retornar">
                  <p>Retornar</p>
              </button>
@@ -120,24 +120,32 @@ export default {
   data: function() {
     return {
       user: {
-        username: "",
-        password: "",
         name: "",
+        lastname: "",
+        IDKind: "",
+        IDNumber: "",
+        address: "",
+        city: "",
+        country: "",
+        landline: "",
+        mobilephone: "",
+        jobs: "",
+        company: "",
+        username: "",
         email: "",
-        account: {
-          lastChangeDate: new Date().toJSON().toString(),
-          balance: 0,
-          isActive: true,
-        },
+        password: "",
+        rol: "OT"
       },
     };
   },
+
   methods: {
     processSignUp: function() {
-      axios
-        .post("https://mision-tic-bank-be.herokuapp.com/user/", this.user, {
-          headers: {},
-        })
+      axios.post(
+        "https://mintic-adoptapp-be.herokuapp.com/user/", 
+        this.user, {
+          headers: {}}
+      )
         .then((result) => {
           let dataSignUp = {
             username: this.user.username,
@@ -149,7 +157,6 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-
           alert("ERROR: Fallo en el registro.");
         });
     },
@@ -165,8 +172,8 @@ export default {
     box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
     border-style: none;    
     overflow-y: scroll;
-    padding: 100px;
-    height:70vh;
+    padding: 20px 100px;
+    height:67vh;
     display:grid;
     grid-template:
       "descrip descrip" auto
@@ -253,7 +260,7 @@ export default {
       grid-area:formulario;
       display:inline-grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.2rem;
+      gap: 1rem;
       
     }
 
@@ -275,14 +282,14 @@ export default {
       padding-top: 20px;
       
     }
+
     .boton1{
       grid-area:boton1;
       align-content: center;
       justify-items: center;
       margin: 0;
       align-items: end;
-      padding: 0px;
-      
+      padding: 0px;      
     }
   
     .boton2{
@@ -292,7 +299,6 @@ export default {
       margin: 0;
       align-items: end;
       padding: 0px;
-
     }
 
     .etiquetas{
@@ -301,8 +307,6 @@ export default {
       text-align: left;
       font-weight: bold;
       font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
-      
-
     }
 
     .entradas{
@@ -324,8 +328,6 @@ export default {
       margin: 5px 0 25px 0;
       padding: 15px;
       font-weight: bold;
-      
-
     }
     
     .signUp_user button:hover{
@@ -336,6 +338,45 @@ export default {
         font-style: italic;
     }
 
+    @media (max-width: 768px){
+      #titulo{
+          font-size: 6vw;
+        }
+      
+      #imgandrea{
+          width: 50vw;
+          height: 30vh;
+        }
+
+      #textotorgante{
+          width: 78vw;
+          height: 3vh;
+          font-size: 3vw;
+        }
+
+      .container_signUp_user{
+          padding: 15px 35px;
+          height:57vh; 
+        }
+
+      #Title{
+        font-size: 5vw;
+      }    
+
+      .etiquetas{
+        font-size: 3.3vw;
+      }
+
+      .signUp_user button{
+        width: 25vw;
+        height: 20vh;
+        border-radius: 5px;
+        margin: 5px 0 25px 0;
+        padding: 0 2px;
+        font-weight: bold;
+      }
+
+    }
 
 </style>
 
