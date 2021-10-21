@@ -1,9 +1,32 @@
 <template>
   <div class="signUp_user">
     <div class="container_signUp_user">
+      <div class="descrip">
+      <ul>
+        <il id="titulo">
+          Registro de Otorgante
+        <br />
+        <br />
+        </il>
+        <il>
+        <img  id="imgandrea" src="../assets/Otorgante.png" alt="">
+        <br />
+        <br />
+        </il>
+        <il>
+        <div id="textotorgante">
+        Registra tus datos personales, de ser requerido te contactaremos para confirmar tus datos y continuar el proceso de adopción.
+        </div>
+
+        </il>      
+      </ul> 
+      </div>
       <div class="encabezado">
+      <br /> 
+      <hr />
+
       <h2 id="Title">Información General</h2>
-      <br />
+
       <hr />
       </div>
       <br />
@@ -69,16 +92,21 @@
       
     <div class="boton1">
              <button type="submit">
-                 <img src="../assets/doghead.png" alt="Registrarse">
+                 <img src="../assets/doghead.png" style="width:20px,height:20px" alt="Registrarse">
                  <p>Registrarse</p>
              </button>
     </div>
 
    <div class="boton2">
              <button type="submit">
-                 <img src="../assets/cathead.png" alt="Retornar">
+                 <img src="../assets/cathead.png" style="width:20px,height:20px" alt="Retornar">
                  <p>Retornar</p>
              </button>
+
+    <div class="rayita2">
+
+    </div>
+
     </div>
               
     </div>
@@ -139,14 +167,33 @@ export default {
     overflow-y: scroll;
     padding: 100px;
     height:70vh;
-
     display:grid;
     grid-template:
+      "descrip descrip" auto
       "encabezado encabezado" 100px
       "formulario formulario" auto
       "rayita rayita" 100px
-      "boton1 boton2" 2px;
+      "boton1 boton2" 2px
     }
+
+    .container_signUp_user::-webkit-scrollbar {
+    width: 15px;
+}
+
+.container_signUp_user::-webkit-scrollbar-track {
+    border-radius: 10px;   
+    background-color: #fb7821;
+
+    
+}
+
+.container_signUp_user::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px     rgba(0,0,0,0.5); 
+    background-color: #440381;
+    border: 3px solid #fb7821;
+}
+
 
     #Title{
       color:#fb7821;
@@ -160,6 +207,47 @@ export default {
     hr{
       border-color:#0e7174;
     }
+
+    .descrip{
+      grid-area:descrip;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .descrip ul{
+      display: inline-block;
+    }
+
+    #titulo{
+      color:#440381;
+      font-size: 2vw;
+      text-align: center;
+      font-weight: bold;
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+      text-shadow: 1px 1px #000000;
+      text-decoration: none;
+    }
+
+    #imgandrea{
+      width: 15vw;
+      height: 35vh;
+      text-decoration: none;
+      display: block;
+      margin: auto;
+    }
+
+    #textotorgante{
+      text-decoration: none;
+      width: 40vw;
+      height: 5vh;
+      color:#0e7174;
+      font-size: 1.3vw;
+      text-align: justify;
+      font-weight: bold;
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+      
+    }
+
 
     .formulario{
       grid-area:formulario;
@@ -180,16 +268,21 @@ export default {
       padding-top: 50px;
       
     }
-
+    
+    .rayita2{
+      grid-area:rayita;
+      width: 100%;
+      padding-top: 20px;
+      
+    }
     .boton1{
       grid-area:boton1;
       align-content: center;
       justify-items: center;
       margin: 0;
-      width: 20vh;
-      height: 15vh;
       align-items: end;
-      padding: 15px;
+      padding: 0px;
+      
     }
   
     .boton2{
@@ -197,10 +290,9 @@ export default {
       align-content: center;
       justify-items: center;
       margin: 0;
-      width: 20vh;
-      height: 15vh;
       align-items: end;
-      padding: 15px;
+      padding: 0px;
+
     }
 
     .etiquetas{
@@ -223,13 +315,16 @@ export default {
 
     .signUp_user button{
       color: #440381;
-      background: #0e7174;
+      background: rgba(15, 113, 116, 0.4);
       border: 1px solid #0e7174;
       box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
-
+      width: 10vw;
+      height: 20vh;
       border-radius: 5px;
       margin: 5px 0 25px 0;
       padding: 15px;
+      font-weight: bold;
+      
 
     }
     
@@ -237,5 +332,10 @@ export default {
         color: #fb7821;
         border: 1px solid #0e7174;
         box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+        transform: scale(1.04);
+        font-style: italic;
     }
+
+
 </style>
+
