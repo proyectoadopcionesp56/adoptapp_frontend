@@ -149,7 +149,6 @@
 
 <script>
 import { base_url } from "../utils/environments";
-import "vue-select/dist/vue-select.css";
 import countries from "../utils/countries.json";
 
 import axios from "axios";
