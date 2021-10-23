@@ -33,13 +33,13 @@
         Inicio
       </button>
 
-      <!-- <button
+      <button
         v-if="is_auth"
         v-on:click="loadPetAdoption"
         class="hover:text-purple-500 font-bold"
       >
         Adoption
-      </button> -->
+      </button>
 
       <button
         v-if="is_auth"

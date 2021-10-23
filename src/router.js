@@ -3,6 +3,7 @@ import App from "./App.vue";
 import LogIn from "./components/LogIn.vue";
 import SignUp from "./components/SignUp.vue";
 import Home from "./components/Home.vue";
+import Conditions from './components/Conditions.vue'
 import PetAdoption from "./components/PetAdoption.vue";
 import MyPets from "./components/MyPets.vue";
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: "/user/home",
     name: "home",
     component: MyPets,
+  },
+  {
+    path: "/user/conditions",
+    name: "conditions",
+    component: Conditions,    
   },
   {
     path: "/user/adoption",
