@@ -7,12 +7,9 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@pdftron/webviewer": "^8.1.0",
-=======
     "@vuelidate/core": "^2.0.0-alpha.29",
     "@vuelidate/validators": "^2.0.0-alpha.24",
->>>>>>> main
     "axios": "^0.23.0",
     "core-js": "^3.6.5",
     "jwt-decode": "^3.1.2",
