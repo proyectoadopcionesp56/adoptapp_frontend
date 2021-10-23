@@ -117,9 +117,11 @@
       </div>
     </div>
   </div>
+  <!-- <WebViewer initialDoc="http://cathi.uacj.mx/bitstream/handle/20.500.11961/18503/MEMORIAS-CONGRESO-ACACIA-2021.pdf"/> -->
 </template>
 <script>
 import Wave from "./components/Wave.vue";
+import WebViewer from './components/Conditions.vue';
 export default {
   name: "App",
   data: function() {
@@ -133,6 +135,7 @@ export default {
   },
   components: {
     Wave,
+    WebViewer,
   },
   methods: {
     verifyAuth: function() {

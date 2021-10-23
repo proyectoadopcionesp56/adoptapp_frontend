@@ -29,7 +29,9 @@ const routes = [
   {
     path: "/user/conditions",
     name: "conditions",
-    component: Conditions,
+    component: Conditions,    
+  },
+  {
     path: "/user/adoption",
     name: "adoption",
     component: PetAdoption,
