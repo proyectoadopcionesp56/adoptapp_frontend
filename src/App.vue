@@ -24,7 +24,7 @@
       />
       <div id="Logo" class="absolute top-0 left-0  w-40 h-28"></div>
       <nav
-        class="absolute top-full left-4/10 md:left-6/10 lg:left-4/6 lg:w-fit bg-yellow-400 rounded-md py-2 px-4 flex gap-4 text-purple-800"
+        class="absolute top-full left-4/10 md:left-6/10 lg:left-7/10 lg:w-fit bg-yellow-400 rounded-md py-2 px-4 flex gap-4 text-purple-800"
       >
         <button
           v-if="is_auth"
@@ -32,6 +32,13 @@
           class="hover:text-purple-500 font-bold"
         >
           Inicio
+        </button>
+        <button
+          v-if="is_auth"
+          v-on:click="loadPetAdoption"
+          class="hover:text-purple-500 font-bold"
+        >
+          Adoption
         </button>
         <button v-if="is_auth" class="hover:text-purple-500 font-bold">
           Cuenta
@@ -139,11 +146,16 @@ export default {
     loadSignUp: function() {
       this.$router.push({ name: "signUp" });
     },
+    loadPetAdoption: function() {
+      this.$router.push({ name: "adoption" });
+    },
     completedLogIn: function(data) {
       localStorage.setItem("isAuth", true);
+      localStorage.setItem("id_user", data.id_user);
       localStorage.setItem("username", data.username);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
+
       alert("Autenticación Exitosa");
       this.verifyAuth();
     },

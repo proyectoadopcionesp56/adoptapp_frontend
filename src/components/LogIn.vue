@@ -43,6 +43,8 @@
 
 <script>
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { base_url } from "../utils/environments";
 export default {
   name: "LogIn",
   data: function() {
@@ -57,12 +59,15 @@ export default {
   methods: {
     processLogInUser: function() {
       axios
-        .post("https://mintic-adoptapp-be.herokuapp.com/login/", this.user, {
+        .post(`${base_url}/login/`, this.user, {
           headers: {},
         })
         .then((result) => {
+          let token = result.data.access;
+          let userId = jwt_decode(token).user_id.toString();
           let dataLogIn = {
             username: this.user.username,
+            id_user: userId,
             token_access: result.data.access,
             token_refresh: result.data.refresh,
           };

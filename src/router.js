@@ -4,7 +4,7 @@ import LogIn from "./components/LogIn.vue";
 import SignUp from "./components/SignUp.vue";
 import Home from "./components/Home.vue";
 import Conditions from './components/Conditions.vue'
-
+import PetAdoption from "./components/PetAdoption.vue";
 const routes = [
   {
     path: "/",
@@ -30,6 +30,9 @@ const routes = [
     path: "/user/conditions",
     name: "conditions",
     component: Conditions,
+    path: "/user/adoption",
+    name: "adoption",
+    component: PetAdoption,
   },
 ];
 const router = createRouter({
