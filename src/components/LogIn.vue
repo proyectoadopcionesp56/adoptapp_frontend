@@ -59,8 +59,11 @@ export default {
   methods: {
     processLogInUser: function() {
       axios
-        .post(`${base_url}/login/`, this.user, {
-          headers: {},
+        .post(`https://mision-tic-bank-be.herokuapp.com/login/`, this.user, {
+          // withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
         .then((result) => {
           let token = result.data.access;
