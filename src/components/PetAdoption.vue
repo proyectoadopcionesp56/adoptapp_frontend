@@ -1,7 +1,7 @@
 <template>
   <div id="grid_pet_adoption">
     <div id="image-render" :class="pet.image ? '' : ''">
-      <img :src="auxImage" class="fixed" />
+      <img :src="auxImage ? auxImage : 'texto ese'" class="fixed" />
     </div>
     <form
       id="form"
@@ -44,19 +44,14 @@
         </fieldset>
         <fieldset>
           <legend>Pais</legend>
-          <input
-            type="text"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            v-model="pet.country"
-          />
+          <Select v-model="pet.country" :options="countries"></Select>
         </fieldset>
         <fieldset>
           <legend>Ciudad</legend>
-          <input
-            type="text"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
+          <Select
             v-model="pet.city"
-          />
+            :options="countries[pet.country] ? countries[pet.country] : []"
+          ></Select>
         </fieldset>
         <fieldset>
           <legend>Cohabitable</legend>
@@ -123,7 +118,7 @@
         </fieldset> -->
         <fieldset>
           <legend>Imagen</legend>
-          <input type="file" @change="onFileChange" />
+          <input type="file" />
         </fieldset>
       </div>
       <div id="buttons" class="flex justify-center">
@@ -153,15 +148,16 @@
 </template>
 
 <script>
-// import useValidate from "@vuelidate/core";
-// import { required } from "@vuelidate/validators";
-import axios from "axios";
 import { base_url } from "../utils/environments";
+import countries from "../utils/countries.json";
+
+import axios from "axios";
+import Select from "./Select.vue";
+
 export default {
   name: "PetAdoption",
   data: function() {
     return {
-      // v$: useValidate(),
       pet: {
         name: "",
         species: "",
@@ -183,33 +179,12 @@ export default {
         image: "",
       },
       auxImage: "",
+      countries: countries,
     };
   },
-  // validations() {
-  //   return {
-  //     v$: useValidate(),
-  //     pet: {
-  //       name: { required },
-  //       species: { required },
-  //       size: { required },
-  //       age: { required },
-  //       country: { required },
-  //       city: { required },
-  //       cohabitation_animals: { required },
-  //       cohabitation_kids: { required },
-  //       pathologies: { required },
-  //       diseases_drugs: { required },
-  //       sterilized: { required },
-  //       vaccinated: { required },
-  //       vaccines: { required },
-  //       deworming: { required },
-  //       dewormer: { required },
-  //       history: { required },
-  //       status: { required },
-  //       image: { required },
-  //     },
-  //   };
-  // },
+  components: {
+    Select,
+  },
   methods: {
     createPetAdoption() {
       const formData = new FormData();
@@ -231,7 +206,6 @@ export default {
       formData.append("history", this.pet.history);
       formData.append("status", this.pet.status);
       formData.append("image", this.pet.image);
-      console.log(this.pet.image);
       axios
         .post(`${base_url}/pet/`, formData, {
           headers: {

@@ -105,8 +105,8 @@
         :height="'h-4/6'"
         :d="d_bottom"
       />
-      <div class="absolute -top-28 left-10  w-auto hidden md:block">
-        <div id="Lupe" class="w-56 h-56"></div>
+      <div class="absolute -top-20 left-10  w-auto hidden md:block">
+        <div id="Lupe" class="w-40 h-40"></div>
       </div>
       <div
         class="absolute top-0 md:top-7 left-0 w-full flex justify-center md:flex-row md:justify-end"
