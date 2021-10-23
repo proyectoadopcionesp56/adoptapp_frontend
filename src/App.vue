@@ -57,6 +57,7 @@
         >
           Registrarse
         </button>
+        <router-link to='/user/conditions'>Condiciones</router-link>
       </nav>
       <div
         id="Adoptapp"
