@@ -9,7 +9,7 @@
             <br />
           </il>
           <il>
-            <!-- <img id="imgandrea" src="../assets/Otorgante.png" alt="" /> -->
+            <img id="imgandrea" src="../assets/Otorgante.png" alt="" />
             <br />
             <br />
           </il>
@@ -174,11 +174,11 @@
 
       <div class="boton1">
         <button type="submit" form="CreateForm">
-          <!-- <img
+          <img
             src="../assets/doghead.png"
             style="width:20px,height:20px"
             alt="Registrarse"
-          /> -->
+          />
           <p>Registrarse</p>
         </button>
       </div>
@@ -188,11 +188,11 @@
           type="submit"
           onclick="window.location.href = 'https://mintic-adoptapp-fe.herokuapp.com/login/';"
         >
-          <!-- <img
+          <img
             src="../assets/cathead.png"
             style="width:20px,height:20px"
             alt="Retornar"
-          /> -->
+          />
           <p>Retornar</p>
         </button>
 

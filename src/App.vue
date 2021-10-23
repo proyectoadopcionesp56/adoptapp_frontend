@@ -1,81 +1,71 @@
 <template>
-  <div id="bg" class="min-h-screen max-h-screen"></div>
-  <div
-    class="absolute top-0 left-0 grid grid-cols-3 grid-rows-6 text-center min-h-screen max-h-screen w-full"
-  >
-    <div class="relative col-span-3 row-span-1">
-      <Wave
-        :top="true"
-        :color="'text-purple-base'"
-        :height="'h-full'"
-        :d="d_top"
-      />
-      <Wave
-        :top="true"
-        :color="'text-green-base'"
-        :height="'h-4/5'"
-        :d="d_top"
-      />
-      <Wave
-        :top="true"
-        :color="'text-orange-base'"
-        :height="'h-4/6'"
-        :d="d_top"
-      />
-      <div id="Logo" class="absolute top-0 left-0  w-40 h-28"></div>
-      <nav
-        class="absolute top-full left-4/10 md:left-6/10 lg:left-7/10 lg:w-fit bg-yellow-400 rounded-md py-2 px-4 flex gap-4 text-purple-800"
+  <div>
+    <div class="Concuchara">
+      <div class="arriba">
+        <img id="head" src="./assets/bannerhead.png" alt="" />
+      </div>
+
+      <div class="jooter">
+        <img id="fott" src="./assets/banerfooter.png" alt="" />
+      </div>
+    </div>
+
+    <nav class="nav">
+      <img id="logoa" src="./assets/logo.png" alt="" />
+      <img id="namea" src="./assets/Adoptapp.png" alt="" />
+    </nav>
+
+    <footer class="Lupe">
+      <img id="lupea" src="./assets/Any2.png" alt="" />
+    </footer>
+
+    <footer class="footer">
+      <img id="mintic" src="./assets/MinticLogo.png" alt="" />
+      <img id="unal" src="./assets/UnalLogo.png" alt="" />
+    </footer>
+
+    <nav class="noptions">
+      <button
+        v-if="is_auth"
+        v-on:click="loadHome"
+        class="hover:text-purple-500 font-bold"
       >
-        <button
-          v-if="is_auth"
-          v-on:click="loadHome"
-          class="hover:text-purple-500 font-bold"
-        >
-          Inicio
-        </button>
-        <button
-          v-if="is_auth"
-          v-on:click="loadPetAdoption"
-          class="hover:text-purple-500 font-bold"
-        >
-          Adoption
-        </button>
-        <button v-if="is_auth" class="hover:text-purple-500 font-bold">
-          Cuenta
-        </button>
-        <button
-          v-if="is_auth"
-          v-on:click="logOut"
-          class="hover:text-red-500 font-bold"
-        >
-          Cerrar Sesión
-        </button>
-        <button
-          v-if="!is_auth"
-          v-on:click="loadLogIn"
-          class="hover:text-gray-50 font-bold"
-        >
-          Iniciar Sesión
-        </button>
-        <button
-          v-if="!is_auth"
-          v-on:click="loadSignUp"
-          class="hover:text-gray-50 font-bold"
-        >
-          Registrarse
-        </button>
-      </nav>
-      <div
-        id="Adoptapp"
-        class="absolute hidden md:block bottom-4/10 right-3.5 w-80 h-28"
-      ></div>
-    </div>
-    <div
-      class="col-span-3 row-span-1 flex justify-around items-center h-full w-full"
-    >
-      <div></div>
-      <div></div>
-    </div>
+        Inicio
+      </button>
+
+      <!-- <button
+        v-if="is_auth"
+        v-on:click="loadPetAdoption"
+        class="hover:text-purple-500 font-bold"
+      >
+        Adoption
+      </button> -->
+
+      <button
+        v-if="is_auth"
+        v-on:click="logOut"
+        class="hover:text-red-500 font-bold"
+      >
+        Cerrar Sesión
+      </button>
+
+      <button
+        v-if="!is_auth"
+        v-on:click="loadLogIn"
+        class="hover:text-gray-50 font-bold"
+      >
+        Iniciar Sesión
+      </button>
+
+      <button
+        v-if="!is_auth"
+        v-on:click="loadSignUp"
+        class="hover:text-gray-50 font-bold"
+      >
+        Registrarse
+      </button>
+    </nav>
+
     <div
       class="col-span-3 flex flex-col row-span-3 justify-center items-center main-component"
     >
@@ -86,37 +76,9 @@
       >
       </router-view>
     </div>
-    <div class="relative col-span-3 row-span-1 ">
-      <Wave
-        :top="false"
-        :color="'text-purple-base'"
-        :height="'h-full'"
-        :d="d_bottom"
-      />
-      <Wave
-        :top="false"
-        :color="'text-green-base'"
-        :height="'h-4/5'"
-        :d="d_bottom"
-      />
-      <Wave
-        :top="false"
-        :color="'text-orange-base'"
-        :height="'h-4/6'"
-        :d="d_bottom"
-      />
-      <div class="absolute -top-20 left-10  w-auto hidden md:block">
-        <div id="Lupe" class="w-40 h-40"></div>
-      </div>
-      <div
-        class="absolute top-0 md:top-7 left-0 w-full flex justify-center md:flex-row md:justify-end"
-      >
-        <div id="MinticLogo" class="w-40 h-24"></div>
-        <div id="UnalLogo" class="hidden md:block w-40 h-24"></div>
-      </div>
-    </div>
   </div>
 </template>
+
 <script>
 import Wave from "./components/Wave.vue";
 export default {
@@ -158,10 +120,12 @@ export default {
       alert("Autenticación Exitosa");
       this.verifyAuth();
     },
-    completedSignUp: function(data) {},
-    loadHome: function() {
-      this.$router.push({ name: "home" });
+
+    completedSignUp: function(data) {
+      alert("Registro Exitoso");
+      this.completedLogIn(data);
     },
+
     logOut: function() {
       localStorage.clear();
       alert("Sesión Cerrada");
@@ -173,35 +137,123 @@ export default {
   },
 };
 </script>
+
 <style>
-#bg {
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
   background-image: url("./assets/bg.png");
-  @apply bg-cover bg-center bg-no-repeat filter blur-sm;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  background-attachment: fixed;
+  min-height: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
-#ola1 {
-  @apply text-yellow-400;
+
+.arriba {
+  left: 0;
+  top: 0;
+  flex-basis: 20%;
+  position: absolute;
 }
-#ola2 {
-  @apply text-red-400;
+
+#head {
+  height: 100%;
+  width: 100%;
+  z-index: 2;
 }
-#Adoptapp {
-  background-image: url("./assets/Adoptapp.png");
-  @apply bg-contain bg-center bg-no-repeat;
+
+.noptions {
+  position: absolute;
+  top: 20%;
+  right: 5.8%;
+  background-color: #fb7821;
+  color: #440381;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+  width: 15rem;
+  height: 7vh;
 }
-#Logo {
-  background-image: url("./assets/logo.png");
-  @apply bg-contain bg-center bg-no-repeat;
+
+button {
+  margin: 0 10px;
+  gap: 4px;
 }
-#Lupe {
-  background-image: url("./assets/Any1.png");
-  @apply bg-contain bg-center bg-no-repeat;
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 159753;
+  width: 100%;
+  height: 10vh;
 }
-#MinticLogo {
-  background-image: url("./assets/MinticLogo.png");
-  @apply bg-contain bg-center bg-no-repeat;
+
+#logoa {
+  width: 12vw;
+  height: 15vh;
 }
-#UnalLogo {
-  background-image: url("./assets/UnalLogo.png");
-  @apply bg-contain bg-center bg-no-repeat;
+
+#namea {
+  width: 30vw;
+  height: 18vh;
+}
+
+.Lupe {
+  position: absolute;
+  bottom: 1%;
+  right: 1%;
+}
+
+#lupea {
+  width: 15w;
+  height: 35vh;
+}
+
+.jooter {
+  left: 0;
+  bottom: 0;
+  flex-basis: 20%;
+  /*height:12%;*/
+  position: absolute;
+}
+
+.footer {
+  display: flex;
+  justify-content: left;
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  z-index: 159753;
+  width: 25%;
+  height: 16%;
+  margin: 0 auto;
+  align-items: flex-end;
+}
+
+#mintic {
+  height: 10vh;
+}
+
+#unal {
+  height: 10vh;
+}
+
+.Concuchara {
+  width: 100%;
+  height: 100%;
+}
+
+@supports (object-fit: cover) {
+  .box img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
 </style>

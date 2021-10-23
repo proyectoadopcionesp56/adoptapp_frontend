@@ -1,149 +1,284 @@
 <template>
-  <div id="grid_pet_adoption">
-    <div id="image-render" :class="pet.image ? '' : ''">
-      <img :src="auxImage ? auxImage : 'texto ese'" class="fixed" />
-    </div>
-    <form
-      id="form"
-      :class="pet.image ? 'col-span-2' : ''"
-      v-on:submit.prevent="createPetAdoption"
-    >
-      <div id="fields" class="grid grid-cols-2 grid-flow-row gap-2">
-        <fieldset>
-          <legend>Nombre</legend>
-          <input
-            type="text"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            v-model="pet.name"
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Especie</legend>
-          <input
-            type="text"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            v-model="pet.species"
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Tamanho</legend>
-          <input
-            type="text"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            v-model="pet.size"
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Edad</legend>
-          <input
-            type="number"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            v-model="pet.age"
-            min="0"
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Pais</legend>
-          <Select v-model="pet.country" :options="countries"></Select>
-        </fieldset>
-        <fieldset>
-          <legend>Ciudad</legend>
-          <Select
-            v-model="pet.city"
-            :options="countries[pet.country] ? countries[pet.country] : []"
-          ></Select>
-        </fieldset>
-        <fieldset>
-          <legend>Cohabitable</legend>
-          <div class="flex justify-between items-center">
-            <p>Animales:</p>
-            <input type="checkbox" v-model="pet.cohabitation_animals" />
-          </div>
-          <div class="flex justify-between items-center">
-            <p>Ninhos:</p>
-            <input type="checkbox" v-model="pet.cohabitation_kids" />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Enfermedades</legend>
-          <input type="checkbox" v-model="pet.pathologies" />
-        </fieldset>
-        <fieldset>
-          <legend>Medicamentos</legend>
-          <input
-            type="text"
-            class="p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            v-model="pet.diseases_drugs"
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Esterilizado</legend>
-          <input type="checkbox" v-model="pet.sterilized" />
-        </fieldset>
-        <fieldset>
-          <legend>Vacunado</legend>
-          <input type="checkbox" v-model="pet.vaccinated" />
-        </fieldset>
-        <fieldset class="row-span-2">
-          <legend>Vacunas</legend>
-          <textarea
-            class="w-full h-full p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            type="text"
-            v-model="pet.vaccines"
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Desparasitado</legend>
-          <input type="checkbox" v-model="pet.deworming" />
-        </fieldset>
-        <fieldset class="row-span-2">
-          <legend>Desparasitantes</legend>
-          <textarea
-            class="w-full h-full p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            type="text"
-            v-model="pet.dewormer"
-          />
-        </fieldset>
-        <fieldset class="col-span-2 row-span-2">
-          <legend>Historia</legend>
-          <textarea
-            class="w-full h-full p-2 shadow rounded-lg bg-gray-100 outline-none border-b border-green-500  focus:bg-gray-200"
-            type="text"
-            v-model="pet.history"
-          />
-        </fieldset>
-        <!-- <fieldset>
-          <legend></legend>
-          <input type="text" v-model="pet.status" />
-        </fieldset> -->
-        <fieldset>
-          <legend>Imagen</legend>
-          <input type="file" />
-        </fieldset>
+  <div class="pet">
+    <div class="container_pet">
+      <div class="encabezado">
+        <br />
+        <hr />
+        <h2 id="Title">Ficha de Conocimiento Animal de Compañía</h2>
+        <hr />
       </div>
-      <div id="buttons" class="flex justify-center">
-        <button
-          type="submit"
-          class="w-max flex items-center justify-center uppercase font-bold m-0 border border-green-base text-lg text-purple-base hover:text-orange-base rounded-b-lg p-3"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      <form
+        id="CreateForm"
+        class="formulariopet"
+        v-on:submit.prevent="createPetAdoption"
+      >
+        <div class="photo">
+          <div>
+            <img class="loadp" :src="auxImage" v-if="auxImage.length" />
+            <img class="loadp" src="../assets/chirip.png" v-else />
+          </div>
+          <div>
+            <form
+              class="custom-file-upload"
+              name="subida-imagenes"
+              type="POST"
+              enctype="multipart/formdata"
+            >
+              <label id="uph"
+                >Cargar Imagen
+                <input
+                  class="photo hidden"
+                  type="file"
+                  @change="onFileChange"
+                  display:none
+                  name="imagen1"
+                />
+              </label>
+            </form>
+          </div>
+        </div>
+
+        <div class="basic">
+          <div class="one">
+            <label class="etiquetas" for="name">Nombres</label>
+            <input
+              class="entradas"
+              type="text"
+              id="name"
+              v-model="pet.name"
+              placeholder="Ejem: Matty"
             />
-          </svg>
-          <p>Enviar</p>
+
+            <label class="etiquetas" for="especie">Especie </label>
+            <input
+              class="entradas"
+              type="text"
+              id="especie"
+              v-model="pet.species"
+              placeholder="Ejem: Gato"
+            />
+
+            <label class="etiquetas" for="tamaño"> Tamaño </label>
+            <select class="entradas" name="ID" v-model="pet.size">
+              <option value="" disable selected hidden
+                >Seleccione Tamaño</option
+              >
+              <option value="LG">Grande</option>
+              <option value="MD">Mediano</option>
+              <option value="SM">Pequeño</option>
+            </select>
+
+            <label class="etiquetas" for="edad">Edad</label>
+            <input
+              class="entradas"
+              type="text"
+              id="edad"
+              v-model="pet.age"
+              placeholder="Sin Espacios"
+            />
+
+            <label class="etiquetas" for="country">País</label>
+            <Select v-model="pet.country" :options="countries"></Select>
+
+            <label class="etiquetas" for="city">Ciudad</label>
+            <Select
+              v-model="pet.city"
+              :options="countries[pet.country] ? countries[pet.country] : []"
+            ></Select>
+
+            <p class="etiquetas">Convivencia con Animales</p>
+            <div class="two">
+              <label class="etiquetas" for="TRUE">Si</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="TRUE"
+                name="sanimales"
+                v-model="pet.cohabitation_animals"
+              />
+              <label class="etiquetas" for="FALSE">No</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="FALSE"
+                name="sanimales"
+                v-model="pet.cohabitation_animals"
+              />
+            </div>
+
+            <p class="etiquetas">Convivencia con Niños</p>
+            <div class="two">
+              <label class="etiquetas" for="TRUE">Si</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="TRUE"
+                name="sniños"
+                v-model="pet.cohabitation_kids"
+              />
+              <label class="etiquetas" for="FALSE">No</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="FALSE"
+                name="sniños"
+                v-model="pet.cohabitation_kids"
+              />
+            </div>
+
+            <p class="etiquetas">Patologías</p>
+            <div class="two">
+              <label class="etiquetas" for="TRUE">Si</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="TRUE"
+                name="spato"
+                v-model="pet.pathologies"
+              />
+              <label class="etiquetas" for="FALSE">No</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="FALSE"
+                name="spato"
+                v-model="pet.pathologies"
+              />
+            </div>
+
+            <label class="etiquetas" for="cualesp">¿Cuáles Patologías?</label>
+            <textarea
+              class="entradas"
+              type="text"
+              id="cualesp"
+              v-model="pet.diseases_drugs"
+              placeholder="Incluir medicamentos que se suminsitran"
+            >
+            </textarea>
+
+            <p class="etiquetas">Esterilizada / Castrado</p>
+            <div class="two">
+              <label class="etiquetas" for="TRUE">Si</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="TRUE"
+                name="sesteriliza"
+                v-model="pet.sterilized"
+              />
+              <label class="etiquetas" for="FALSE">No</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="FALSE"
+                name="sesteriliza"
+                v-model="pet.sterilized"
+              />
+            </div>
+
+            <p class="etiquetas">Vacunado</p>
+            <div class="two">
+              <label class="etiquetas" for="TRUE">Si</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="TRUE"
+                name="svacuna"
+                v-model="pet.vaccinated"
+              />
+              <label class="etiquetas" for="FALSE">No</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="FALSE"
+                name="svacuna"
+                v-model="pet.vaccinated"
+              />
+            </div>
+
+            <label class="etiquetas" for="cualesv">¿Cuáles Vacunas?</label>
+            <textarea
+              class="entradas"
+              type="text"
+              id="cualesv"
+              v-model="pet.vaccines"
+              placeholder="Incluir vacunas vigentes"
+            >
+            </textarea>
+
+            <p class="etiquetas">Desparasitado</p>
+            <div class="two">
+              <label class="etiquetas" for="TRUE">Si</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="TRUE"
+                name="sparasito"
+                v-model="pet.deworming"
+              />
+              <label class="etiquetas" for="FALSE">No</label>
+              <input
+                class="entradas"
+                type="radio"
+                id="FALSE"
+                name="sparasito"
+                v-model="pet.deworming"
+              />
+            </div>
+
+            <label class="etiquetas" for="cualesd">¿Cuál Desparasitante?</label>
+            <textarea
+              class="entradas"
+              type="text"
+              id="address"
+              v-model="pet.dewormer"
+              placeholder="Incluir último suminsitrado"
+            >
+            </textarea>
+          </div>
+        </div>
+
+        <div class="story">
+          <label class="etiquetas" for="historia">Historia</label>
+          <textarea
+            class="entradas"
+            id="historia"
+            v-model="pet.history"
+            placeholder="Registre la historia del animal de compañía que desea entregar en adopción"
+          >
+          </textarea>
+        </div>
+      </form>
+
+      <div class="rayita">
+        <hr />
+      </div>
+
+      <div class="boton1">
+        <button type="submit" form="CreateForm">
+          <img
+            src="../assets/doghead.png"
+            style="width:20px,height:20px"
+            alt="Registrarse"
+          />
+          <p>Registrarse</p>
         </button>
       </div>
-    </form>
+
+      <div class="boton2">
+        <button
+          type="submit"
+          onclick="window.location.href = 'https://mintic-adoptapp-fe.herokuapp.com/login/';"
+        >
+          <img
+            src="../assets/cathead.png"
+            style="width:20px,height:20px"
+            alt="Retornar"
+          />
+          <p>Retornar</p>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -207,7 +342,7 @@ export default {
       formData.append("status", this.pet.status);
       formData.append("image", this.pet.image);
       axios
-        .post(`${base_url}/pet/`, formData, {
+        .post(`https://mintic-adoptapp-fe.herokuapp.com/pet/`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token_access")}`,
@@ -217,7 +352,7 @@ export default {
           alert("Pet creada");
           axios
             .post(
-              `${base_url}/requestPet/`,
+              `https://mintic-adoptapp-fe.herokuapp.com/requestPet/`,
               {
                 user: localStorage.getItem("id_user"),
                 pet: peticion.data.id,
@@ -267,8 +402,287 @@ export default {
 };
 </script>
 
-<style scoped>
-#grid_pet_adoption {
+<style>
+.container_pet {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+  border-style: none;
+  overflow-y: scroll;
+  padding: 20px 50px;
+  top: 80%;
+  left: 50%;
+  height: 70vh;
+  width: 60vw;
+  margin-left: -15vw;
+  margin-top: 5vh;
+  display: grid;
+  grid-template:
+    "encabezado encabezado" 150px
+    "formulario formulario" auto
+    "rayita rayita" 100px
+    "boton1 boton2" 2px;
+}
+
+.container_pet::-webkit-scrollbar {
+  width: 15px;
+}
+
+.container_pet::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fb7821;
+}
+
+.container_pet::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  background-color: #440381;
+  border: 3px solid #fb7821;
+}
+
+#Title {
+  color: #440381;
+  font-size: 2vw;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-shadow: 1px 1px #000000;
+}
+
+hr {
+  border-color: #0e7174;
+}
+
+.encabezado {
+  grid-area: encabezado;
+}
+
+.formulariopet {
+  grid-area: formulario;
+  display: inline-grid;
+  gap: 2rem;
+  grid-template:
+    "photo basic" auto
+    "story story" 100px;
+}
+
+.photo {
+  grid-area: photo;
+  position: relative;
+  top: 4%;
+}
+
+.loadp {
+  width: max-content;
+  height: 30vh;
+}
+
+.basic {
+  grid-area: basic;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.one {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  color: #440381;
+  justify-items: left;
+}
+
+.two {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  justify-items: center;
+  color: #440381;
+  font-weight: bold;
+  font-size: 1.3vw;
+}
+
+.story {
+  grid-area: story;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+
+.rayita {
+  grid-area: rayita;
+  width: 100%;
+  padding-top: 50px;
+}
+
+#uph {
+  color: #440381;
+  background: rgba(251, 121, 33, 0.6);
+  border: 1px solid #0e7174;
+  box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  margin: 5px 0 25px 0;
+  padding: 10px 10px;
+  font-weight: bold;
+  position: relative;
+  top: 0;
+}
+
+#uph:hover {
+  background-color: #440381;
+  font-style: italic;
+  color: #0e7174;
+}
+
+.custom-file-upload {
+  position: relative;
+  top: 50%;
+  display: initial;
+  padding: 15px 14px;
+  height: 15px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.boton1 {
+  grid-area: boton1;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  margin: 0;
+  align-items: end;
+  padding: 0px 0px;
+}
+
+.boton2 {
+  grid-area: boton2;
+  align-content: center;
+  justify-items: center;
+  margin: 0;
+  align-items: end;
+  padding: 0px;
+  text-align: center;
+}
+
+.etiquetas {
+  color: #440381;
+  font-size: 1.3vw;
+  text-align: left;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.entradas {
+  border-radius: 4px;
+  box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+  border-style: none;
+}
+
+.pet button {
+  color: #440381;
+  background: rgba(15, 113, 116, 0.4);
+  border: 1px solid #0e7174;
+  box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+  width: 10vw;
+  height: 20vh;
+  border-radius: 5px;
+  margin: 5px 0 25px 0;
+  padding: 0px 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.pet button:hover {
+  color: #fb7821;
+  border: 1px solid #0e7174;
+  box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+  transform: scale(1.04);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  #titulo {
+    font-size: 3vw;
+  }
+
+  #imgandrea {
+    width: 50vw;
+    height: 30vh;
+  }
+
+  #textotorgante {
+    width: 78vw;
+    height: 3vh;
+    font-size: 3vw;
+  }
+
+  .container_pet {
+    padding: 2px 45px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    height: 50vh;
+    width: 50vw;
+    margin-left: 25vw;
+    margin-top: -25vh;
+  }
+
+  #Title {
+    font-size: 5vw;
+  }
+
+  .etiquetas {
+    font-size: 3.3vw;
+  }
+
+  .pet button {
+    width: 25vw;
+    height: 20vh;
+    border-radius: 5px;
+    margin: 5px 0 25px 0;
+    padding: 0 2px;
+    font-weight: bold;
+  }
+
+  .photo {
+    width: 100%;
+    padding: 3px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+
+  .loadp {
+    height: 20vh;
+    width: 50vw;
+  }
+
+  .formulariopet {
+    grid-area: formulario;
+    grid-template:
+      "photo" auto
+      "basic" auto
+      "story" 100px;
+  }
+
+  .container_pet {
+    padding: 2px 45px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    height: 50vh;
+    width: 96vw;
+    margin-left: -48vw;
+    margin-top: -25vh;
+  }
+
+  .basic {
+    padding: 15px;
+  }
+}
+
+/*#grid_pet_adoption {
   background: rgba(255, 255, 255, 0.4);
   @apply grid grid-cols-3 grid-flow-row overflow-y-auto py-2 px-4 rounded-md;
 }
@@ -277,5 +691,5 @@ fieldset {
 }
 .center-absolute {
   @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3 overflow-y-auto;
-}
+}*/
 </style>
