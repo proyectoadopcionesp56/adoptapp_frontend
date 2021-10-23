@@ -1,7 +1,7 @@
 <template>
   <div id="grid_pet_adoption">
     <div id="image-render" :class="pet.image ? '' : ''">
-      <img :src="auxImage" class="fixed" />
+      <img :src="auxImage ? auxImage : 'texto ese'" class="fixed" />
     </div>
     <form
       id="form"
@@ -118,7 +118,7 @@
         </fieldset> -->
         <fieldset>
           <legend>Imagen</legend>
-          <input type="file" @change="onFileChange" />
+          <input type="file" />
         </fieldset>
       </div>
       <div id="buttons" class="flex justify-center">
