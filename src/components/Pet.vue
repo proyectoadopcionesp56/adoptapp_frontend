@@ -4,7 +4,7 @@
     <h4 class="uppercase text-3xl text-purple-base">
       {{ requestPet?.pet?.name }}
     </h4>
-    <button class="text-orange-base font-bold p-2 rounded-full">
+    <button  @click="updatePet" class="text-orange-base font-bold p-2 rounded-full">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-8 w-8 flex-no-shrink hover:text-orange-800  hover:fill-current"
@@ -76,6 +76,11 @@ export default {
           this.$emit("deletePet", res.data);
         })
         .catch((err) => {});
+    },
+    updatePet(){
+      this.$router.push({
+        name:"adoption", params: {updatePet:this.requestPet.pet.id}
+      })
     },
   },
 };

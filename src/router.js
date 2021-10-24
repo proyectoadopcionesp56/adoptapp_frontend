@@ -36,6 +36,7 @@ const routes = [
     path: "/user/adoption",
     name: "adoption",
     component: PetAdoption,
+    props: true,
   },
 ];
 const router = createRouter({

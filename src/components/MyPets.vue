@@ -2,8 +2,8 @@
   <div class="generalcontainer transform -translate-y-12">
     <div class="flex justify-between items-center gap-10">
       <img
-        class="object-center w-40 h-40 hidden md:block"
-        src="../assets/logo.png"
+        class="object-center w-40 h-30 hidden md:block"
+        src="../assets/mypets.png"
       />
       <div class="">
         <h1 class="title font-bold text-purple-base">QUIERO DAR EN ADOPCIÓN</h1>
@@ -27,7 +27,7 @@
         `text-green-base p-2 rounded-full ${requestPets.length &&
           'absolute bottom-0 right-1'}`
       "
-      @click="loadPetAdoption"
+      @click="loadConditions"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -77,8 +77,8 @@ export default {
             .filter((requestPet) => requestPet.pet.status !== "RT");
         });
     },
-    loadPetAdoption: function() {
-      this.$router.push({ name: "adoption" });
+    loadConditions: function() {
+      this.$router.push({ name: "conditions" });
     },
     handleDeletePet: function(pet) {
       this.requestPets = this.requestPets.filter(
@@ -93,16 +93,16 @@ export default {
 </script>
 
 <style>
-#Spay {
-  background-image: url("../assets/Spay2.png");
-  @apply bg-contain bg-center bg-no-repeat;
-}
 
 .generalcontainer {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.4);
-  width: 80%;
-  height: 710px;
+  width: 60vw;
+  height: 71vh;
+  position: absolute;
+  top: 20.8%;
+  left: 15%;
+  padding: 15px;
   overflow: auto !important;
 }
 

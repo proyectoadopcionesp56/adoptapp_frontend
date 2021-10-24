@@ -18,18 +18,21 @@
     ></iframe>
     <div class="contenedorBtn">
       <button
-        v-on:click="confirmacion"
+      @click="confirmacion"
         class="btnCondiciones hover:text-purple-500 font-bold "
       >
         Aceptar
       </button>
-      <button class="btnCondiciones hover:text-purple-500 font-bold">
+      <button  @click="loadMyPets" class="btnCondiciones hover:text-purple-500 font-bold">
         Cancelar
       </button>
     </div>
   </div>
 </template>
+
 <script>
+
+
 export default {
   components: {},
   methods: {
@@ -38,8 +41,14 @@ export default {
       alert(`
                 Haz Aceptado los terminos y Condiciones
                                             Bienvenido `);
-    },
-  },
+      this.$router.push({name:"adoption"})    
+      },
+    loadMyPets: function(){
+      this.$router.push({
+        name:"home"
+      })
+    }
+  },  
 };
 </script>
 
@@ -48,10 +57,14 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
 .contenedorPrincipal {
   margin: 0;
-  padding: 5em;
-  border-radius: 5em;
+  padding: 3vh;
+  border-radius: 2em;
+  position: absolute;
+  text-align: center;
+  top: 13%;
+  left: 13%;
+  height: 73vh;
   background-color: rgba(255, 251, 239, 0.65);
-  margin-bottom: 60px;
 }
 
 .btnCondiciones {

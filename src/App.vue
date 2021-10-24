@@ -27,18 +27,10 @@
     <nav class="noptions">
       <button
         v-if="is_auth"
-        v-on:click="loadHome"
+        @click="loadHome"
         class="hover:text-purple-500 font-bold"
       >
         Inicio
-      </button>
-
-      <button
-        v-if="is_auth"
-        v-on:click="loadPetAdoption"
-        class="hover:text-purple-500 font-bold"
-      >
-        Adoption
       </button>
 
       <button
@@ -51,7 +43,7 @@
 
       <button
         v-if="!is_auth"
-        v-on:click="loadLogIn"
+        @click="loadLogIn"
         class="hover:text-gray-50 font-bold"
       >
         Iniciar Sesión
@@ -106,6 +98,9 @@ export default {
     },
     loadSignUp: function() {
       this.$router.push({ name: "signUp" });
+    },
+    loadHome: function() {
+      this.$router.push({ name: "home" });
     },
     loadPetAdoption: function() {
       this.$router.push({ name: "adoption" });

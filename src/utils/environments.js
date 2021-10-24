@@ -1,1 +1,1 @@
-export const base_url = "https://mision-tic-bank-be.herokuapp.com";
+export const base_url = "https://mintic-adoptapp-be.herokuapp.com";

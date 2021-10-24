@@ -1,9 +1,8 @@
 <template>
   <div class="logIn_user">
     <div class="container_logIn_user">
-      <!-- <h2>Iniciar sesión</h2> -->
-      <form class="flex flex-col gap-2" v-on:submit.prevent="processLogInUser">
-        <div id="Spay" class="w-full h-24"></div>
+      <form class="formulario1" v-on:submit.prevent="processLogInUser">
+        <img src="../assets/Spay2.png" alt="">
         <input
           type="text"
           v-model="user.username"
@@ -59,11 +58,8 @@ export default {
   methods: {
     processLogInUser: function() {
       axios
-        .post(`https://mision-tic-bank-be.herokuapp.com/login/`, this.user, {
-          // withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
+        .post(`https://mintic-adoptapp-be.herokuapp.com/login/`, this.user, {
+          headers: {},
         })
         .then((result) => {
           let token = result.data.access;
@@ -87,8 +83,25 @@ export default {
 </script>
 
 <style>
-#Spay {
-  background-image: url("../assets/Spay2.png");
-  @apply bg-contain bg-center bg-no-repeat;
-}
+
+
+.formulario1{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 15em;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-left: -7.5em;
+  
+
+  }
+
+
+
+
+
+
+
 </style>

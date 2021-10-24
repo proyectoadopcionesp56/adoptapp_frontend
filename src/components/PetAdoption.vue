@@ -93,6 +93,7 @@
                 class="entradas"
                 type="radio"
                 id="TRUE"
+                :value="true"
                 name="sanimales"
                 v-model="pet.cohabitation_animals"
               />
@@ -101,6 +102,7 @@
                 class="entradas"
                 type="radio"
                 id="FALSE"
+                :value="false"
                 name="sanimales"
                 v-model="pet.cohabitation_animals"
               />
@@ -113,6 +115,7 @@
                 class="entradas"
                 type="radio"
                 id="TRUE"
+                :value="true"
                 name="sniños"
                 v-model="pet.cohabitation_kids"
               />
@@ -121,6 +124,7 @@
                 class="entradas"
                 type="radio"
                 id="FALSE"
+                :value="false"
                 name="sniños"
                 v-model="pet.cohabitation_kids"
               />
@@ -133,6 +137,7 @@
                 class="entradas"
                 type="radio"
                 id="TRUE"
+                :value="true"
                 name="spato"
                 v-model="pet.pathologies"
               />
@@ -141,6 +146,7 @@
                 class="entradas"
                 type="radio"
                 id="FALSE"
+                :value="false"
                 name="spato"
                 v-model="pet.pathologies"
               />
@@ -163,6 +169,7 @@
                 class="entradas"
                 type="radio"
                 id="TRUE"
+                :value="true"
                 name="sesteriliza"
                 v-model="pet.sterilized"
               />
@@ -171,6 +178,7 @@
                 class="entradas"
                 type="radio"
                 id="FALSE"
+                :value="false"
                 name="sesteriliza"
                 v-model="pet.sterilized"
               />
@@ -183,6 +191,7 @@
                 class="entradas"
                 type="radio"
                 id="TRUE"
+                :value="true"
                 name="svacuna"
                 v-model="pet.vaccinated"
               />
@@ -191,6 +200,7 @@
                 class="entradas"
                 type="radio"
                 id="FALSE"
+                :value="false"
                 name="svacuna"
                 v-model="pet.vaccinated"
               />
@@ -213,6 +223,7 @@
                 class="entradas"
                 type="radio"
                 id="TRUE"
+                :value="true"
                 name="sparasito"
                 v-model="pet.deworming"
               />
@@ -221,6 +232,7 @@
                 class="entradas"
                 type="radio"
                 id="FALSE"
+                :value="false"
                 name="sparasito"
                 v-model="pet.deworming"
               />
@@ -259,17 +271,14 @@
           <img
             src="../assets/doghead.png"
             style="width:20px,height:20px"
-            alt="Registrarse"
+            alt="Registrar"
           />
-          <p>Registrarse</p>
+          <p>Registrar</p>
         </button>
       </div>
 
       <div class="boton2">
-        <button
-          type="submit"
-          onclick="window.location.href = 'https://mintic-adoptapp-fe.herokuapp.com/login/';"
-        >
+        <button type="submit" @click="loadMyPets">
           <img
             src="../assets/cathead.png"
             style="width:20px,height:20px"
@@ -291,9 +300,11 @@ import Select from "./Select.vue";
 
 export default {
   name: "PetAdoption",
+  props: ["updatePet"],
   data: function() {
     return {
       pet: {
+        id: -1,
         name: "",
         species: "",
         size: "",
@@ -340,43 +351,68 @@ export default {
       formData.append("dewormer", this.pet.dewormer);
       formData.append("history", this.pet.history);
       formData.append("status", this.pet.status);
-      formData.append("image", this.pet.image);
-      axios
-        .post(`https://mintic-adoptapp-fe.herokuapp.com/pet/`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token_access")}`,
-          },
-        })
-        .then((peticion) => {
-          alert("Pet creada");
-          axios
-            .post(
-              `https://mintic-adoptapp-fe.herokuapp.com/requestPet/`,
-              {
-                user: localStorage.getItem("id_user"),
-                pet: peticion.data.id,
-                request_kind: "HD",
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${localStorage.getItem(
-                    "token_access"
-                  )}`,
+      if(typeof this.pet.image !== "string"){
+        formData.append("image", this.pet.image);
+      }
+      if (!this.updatePet) {
+        axios
+          .post(`https://mintic-adoptapp-be.herokuapp.com/pet/`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token_access")}`,
+            },
+          })
+          .then((peticion) => {
+            alert("Mascota Creada");
+            axios
+              .post(
+                `https://mintic-adoptapp-be.herokuapp.com/requestPet/`,
+                {
+                  user: localStorage.getItem("id_user"),
+                  pet: peticion.data.id,
+                  request_kind: "HD",
                 },
-              }
-            )
-            .then((data) => {
-              alert("creada RequestPet");
-            })
-            .catch((err) => {
-              console.log(err);
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem(
+                      "token_access"
+                    )}`,
+                  },
+                }
+              )
+              .then((data) => {
+                // alert("creada RequestPet");
+                this.$router.push({
+                  name: "home",
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+          axios
+          .put(
+            `https://mintic-adoptapp-be.herokuapp.com/pet/update/${this.updatePet}/`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token_access")}`,
+              },
+            }
+          )
+          .then((res) => {
+            alert("Mascota Actualizada");
+            this.$router.push({
+              name: "home",
             });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          });
+      }
     },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -398,6 +434,25 @@ export default {
       this.pet.image = "";
       this.auxImage = "";
     },
+    loadMyPets: function() {
+      this.$router.push({
+        name: "home",
+      });
+    },
+  },
+  created() {
+    console.log(this.updatePet);
+    if (this.updatePet) {
+      axios
+        .get(`${base_url}/pet/detail/${this.updatePet}/`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token_access")}`,
+          },
+        })
+        .then((res) => {
+          this.pet = res.data;
+        });
+    }
   },
 };
 </script>
